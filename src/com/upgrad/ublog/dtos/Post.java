@@ -49,4 +49,52 @@ public class Post {
 //         * Post{postId=1, emailId='dummy@dummy.com', tag='tag', title='title', description='Description', timestamp=2020-05-22T21:01:34.483363800}
 //         */
 //    }
+
+    public int getPostId(){
+        return postId;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }
