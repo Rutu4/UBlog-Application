@@ -12,8 +12,14 @@ package com.upgrad.ublog.dtos;
  *
  * Note: Uncomment the toString() method given below, instead of writing a new one.
  */
-
+import java.time.LocalDateTime;
 public class Post {
+    private int postId;
+    private String emailId;
+    private String tag;
+    private String title;
+    private String description;
+    private LocalDateTime timestamp;
 
 //    @Override
 //    public String toString() {
