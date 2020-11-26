@@ -21,7 +21,21 @@ public class Post {
     private String description;
     private LocalDateTime timestamp;
 
-//    @Override
+    public Post(){
+        
+    }
+
+    public Post(int postId, String emailId, String tag, String title,
+                String description, LocalDateTime timestamp) {
+        this.postId = postId;
+        this.emailId=emailId;
+        this.tag=tag;
+        this.title=title;
+        this.description=description;
+        this.timestamp=timestamp;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "Post{" +
 //                "postId=" + postId +
