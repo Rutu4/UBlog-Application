@@ -22,7 +22,7 @@ public class Post {
     private LocalDateTime timestamp;
 
     public Post(){
-        
+
     }
 
     public Post(int postId, String emailId, String tag, String title,
@@ -35,34 +35,34 @@ public class Post {
         this.timestamp=timestamp;
     }
 
-    //    @Override
-//    public String toString() {
-//        return "Post{" +
-//                "postId=" + postId +
-//                ", emailId='" + emailId + '\'' +
-//                ", tag='" + tag + '\'' +
-//                ", title='" + title + '\'' +
-//                ", description='" + description + '\'' +
-//                ", timestamp=" + timestamp +
-//                '}';
-//    }
+ //       @Override
+   // public String toString() {
+     //  return "Post{" +
+       //         "postId=" + postId +
+         //       ", emailId='" + emailId + '\'' +
+           //     ", tag='" + tag + '\'' +
+             //   ", title='" + title + '\'' +
+      //          ", description='" + description + '\'' +
+        //        ", timestamp=" + timestamp +
+          //     '}';
+     // }
 
-//    public static void main(String[] args) {
-//        Post post = new Post();
-//        post.setPostId(1);
-//        post.setEmailId("dummy@dummy.com");
-//        post.setTag("tag");
-//        post.setTitle("title");
-//        post.setDescription("Description");
-//        post.setTimestamp(LocalDateTime.now());
-//
-//        System.out.println(post);
-//
-//        /**
-//         * Your output should be similar to as shown below.
-//         * Post{postId=1, emailId='dummy@dummy.com', tag='tag', title='title', description='Description', timestamp=2020-05-22T21:01:34.483363800}
-//         */
-//    }
+  // public static void main(String[] args) {
+  //      Post post = new Post();
+  //      post.setPostId(1);
+  //      post.setEmailId("dummy@dummy.com");
+  //      post.setTag("tag");
+  //      post.setTitle("title");
+  //      post.setDescription("Description");
+  //      post.setTimestamp(LocalDateTime.now());
+
+  //      System.out.println(post);
+
+  //      /**
+ //        * Your output should be similar to as shown below.
+  //       * Post{postId=1, emailId='dummy@dummy.com', tag='tag', title='title', description='Description', timestamp=2020-05-22T21:01:34.483363800}
+   //     */
+  // }
 
     public int getPostId(){
         return postId;

@@ -6,8 +6,10 @@ package com.upgrad.ublog.exceptions;
  *  parameter and passes it to its base class.
  */
 
-public class IncorrectPasswordException {
-
+public class IncorrectPasswordException  extends Exception{
+             public IncorrectPasswordException(String message){
+                 super((message));
+         }
 
 //    public static void main(String[] args) {
 //        try {
