@@ -20,7 +20,7 @@ import com.upgrad.ublog.db.Database;
 
 
 
-public class UserDAOImpl  {
+public class UserDAOImpl implements UserDAO {
         private UserDAOImpl(){
 
         }
@@ -36,7 +36,7 @@ public class UserDAOImpl  {
         public User findByEmailId(String emailId) throws  SQLException{
                 Connection connection = Database.getConnection();
                 Statement statement = connection.createStatement();
-                String sql = "SELECT * FROM user WHERE emailId = " + emailId;
+                String sql = "SELECT * FROM user WHERE emailId = '" + emailId+"'";
                 ResultSet resultSet = statement.executeQuery(sql);
 
                 if (resultSet.next()) {
@@ -49,25 +49,35 @@ public class UserDAOImpl  {
                     return null;
                 }
             }
+        public User create(User user)throws SQLException{
+            Connection connection = Database.getConnection();
+            Statement statement = connection.createStatement();
+            String sql = "INSERT INTO user (userId, emailId, password) VALUES ("+
+                    user.getUserId() + ", '"+
+                    user.getEmailId() +  "', '"+
+                    user.getPassword()+
+                    "')";
+            statement.executeUpdate(sql);
+            return user;
 
         }
 
-//    public static void main(String[] args) {
-//        try {
-//            UserDAO userDAO = new UserDAOImpl();
-//            User temp = new User();
-//            temp.setUserId(1);
-//            temp.setEmailId("temp@temp.temp");
-//            temp.setPassword("temp");
-//            userDAO.create(temp);
-//            System.out.println(userDAO.findByEmailId("temp@temp.temp"));
-//        } catch (Exception e) {
-//            System.out.println("FAILED");
-//        }
-//
-//        /**
+   public static void main(String[] args) {
+       try {
+            UserDAO userDAO = new UserDAOImpl();
+           User temp = new User();
+           temp.setUserId(2);
+           temp.setEmailId("temp@temp.temp");
+           temp.setPassword("temp");
+            userDAO.create(temp);
+            System.out.println(userDAO.findByEmailId("temp@temp.temp"));
+        } catch (Exception e) {
+            System.out.println(e);
+       }
+
+//       /**
 //         * Following should be the desired output of the main method.
 //         * User{userId=11, emailId='temp@temp.temp', password='temp'}
 //         */
-//    }
+    }
 }
