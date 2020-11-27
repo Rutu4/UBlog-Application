@@ -11,10 +11,46 @@ package com.upgrad.ublog.dao;
  *  into the USER table. Return the same User object which was passed as an input
  *  argument. (Hint: You should get the connection using the Database class)
  */
+import com.upgrad.ublog.dtos.User;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import com.upgrad.ublog.db.Database;
 
-public class UserDAOImpl {
 
 
+public class UserDAOImpl  {
+        private UserDAOImpl(){
+
+        }
+        private static UserDAOImpl instance;
+
+        public static UserDAOImpl getInstance(){
+            if(instance==null){
+                instance=new UserDAOImpl();
+            }
+            return instance;
+        }
+
+        public User findByEmailId(String emailId) throws  SQLException{
+                Connection connection = Database.getConnection();
+                Statement statement = connection.createStatement();
+                String sql = "SELECT * FROM user WHERE emailId = " + emailId;
+                ResultSet resultSet = statement.executeQuery(sql);
+
+                if (resultSet.next()) {
+                    User user = new User();
+                    user.setUserId(resultSet.getInt("userId"));
+                    user.setEmailId(resultSet.getString("emailId"));
+                    user.setPassword(resultSet.getString("password"));
+                    return user;
+                } else {
+                    return null;
+                }
+            }
+
+        }
 
 //    public static void main(String[] args) {
 //        try {

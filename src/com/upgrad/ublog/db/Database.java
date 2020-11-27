@@ -10,16 +10,40 @@ package com.upgrad.ublog.db;
  * TODO 3.4: You should handle the ClassNotFoundException and SQLException individually,
  *  and not using the Exception class.
  */
-
+import java.sql.*;
 public class Database {
+    private static Connection connection=null;
+    private Database(){
+
+    }
+    public  static Connection getConnection(){
+        if (connection == null) {
+            String url = "jdbc:mysql://localhost/ublog";
+            String username = "root";
+            String password = "rutu@1997";
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(url, username, password);
+                System.out.println("Connected");
+            } catch (ClassNotFoundException e) {
+                System.out.println("MySQL Driver not found. Please download and add the driver.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return connection;
+
+    }
 
 
-//    public static void main(String[] args) throws SQLException {
-//        try {
-//            Database.getConnection();
-//            System.out.println("Connected");
-//        } catch (Exception e) {
-//            System.out.println("Not Connected");
-//        }
-//    }
+
+    public static void main(String[] args) throws SQLException {
+       try {
+           Database.getConnection();
+           System.out.println("Connected");
+        } catch (Exception e) {
+            System.out.println("Not Connected");
+        }
+   }
 }

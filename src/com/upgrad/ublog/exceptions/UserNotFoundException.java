@@ -11,13 +11,13 @@ public class UserNotFoundException extends Exception{
         super(message);
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            throw new UserNotFoundException("Custom Message");
-//        } catch (UserNotFoundException e) {
-//            System.out.println(e.getMessage());
-//        }
-//
+ //  public static void main(String[] args) {
+  //     try {
+ //          throw new UserNotFoundException("Custom Message");
+  //      } catch (UserNotFoundException e) {
+   //        System.out.println(e.getMessage());
+  //    }
+
 //        /**
 //         * Your output should look like this.
 //         * Custom Message
