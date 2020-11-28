@@ -147,7 +147,6 @@ public class Application {
                 loggedInEmailId = user.getEmailId();
             }
         } catch (Exception e) {
-            //code to execute when user object was null
             System.out.println(e.getMessage());
         }
 
@@ -167,6 +166,7 @@ public class Application {
      *  a single catch block which handles all exceptions using the Exception class and print the
      *  exception message using the getMessage() method.
      */
+
 
     /**
      * TODO 5.2: After saving the post details into the database using the createPost() method,\
@@ -195,7 +195,22 @@ public class Application {
         System.out.println("*****Create Post*****");
         System.out.println("*********************");
 
+        System.out.println("Post Tag: ");
+        String postTag=scanner.nextLine();
+        System.out.println("Post Title: ");
+        String postTitle=scanner.nextLine();
+        System.out.println("POst Description: ");
+        String postDescription=scanner.nextLine();
 
+       // LocalDateTime localTimeDate=  LocalDateTime.now();
+
+        Post post=new Post(1,loggedInEmailId,postTag,postTitle,postDescription, LocalDateTime.now());
+        try {
+            postService.create(post);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -284,8 +299,8 @@ public class Application {
      */
     public static void main(String[] args) {
         ServiceFactory serviceFactory = new ServiceFactory();
-        UserService userService = null;
-        PostService postService = null;
+        UserService userService = serviceFactory.getUserService();
+        PostService postService = serviceFactory.getPostService();
         Application application = new Application(postService, userService);
         application.start();
     }

@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     private DAOFactory daoFactory;
     private UserServiceImpl(){
         daoFactory = new DAOFactory();
-        userDAO = daoFactory.getUserDAOImpl();
+        userDAO = daoFactory.getUserDAO();
 
     }
     public static UserServiceImpl getInstance(){

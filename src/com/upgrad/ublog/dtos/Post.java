@@ -84,8 +84,8 @@ public class Post {
         return description;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public String getTimestamp() {
+        return ""+timestamp;
     }
 
     public void setPostId(int postId) {

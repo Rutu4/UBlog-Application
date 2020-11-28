@@ -8,10 +8,10 @@ package com.upgrad.ublog.dao;
  */
 
 public class DAOFactory {
-  public PostDAO getPostDAO(){
-      return new PostDAOImpl();
+  public static PostDAO getPostDAO(){
+      return PostDAOImpl.getInstance();
   }
-public  UserDAO getUserDAOImpl(){
+public static UserDAO getUserDAO(){
       return UserDAOImpl.getInstance();
 }
 
