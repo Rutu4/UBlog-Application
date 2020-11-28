@@ -85,6 +85,28 @@ public class Application {
         System.out.println("********Login********");
         System.out.println("*********************");
 
+        System.out.println("EmailId: " );
+        String emailId = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        User user = new User();
+        user.setEmailId(emailId);
+        user.setPassword(password);
+
+
+        try {
+            if (userService.login(user)) {
+                System.out.println("You are logged in.");
+                isLoggedIn = true;
+                loggedInEmailId = user.getEmailId();
+            }
+        } catch (Exception e) {
+            //code to execute when user object was null
+            System.out.println(e.getMessage());
+        }
+
 
     }
 
@@ -107,6 +129,27 @@ public class Application {
         System.out.println("*********************");
         System.out.println("******Register*******");
         System.out.println("*********************");
+
+        System.out.println("EmailId: " );
+        String emailId = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        User user = new User();
+        user.setEmailId(emailId);
+        user.setPassword(password);
+
+        try {
+            if (userService.register(user)) {
+                System.out.println("You are logged in.");
+                isLoggedIn = true;
+                loggedInEmailId = user.getEmailId();
+            }
+        } catch (Exception e) {
+            //code to execute when user object was null
+            System.out.println(e.getMessage());
+        }
 
 
     }

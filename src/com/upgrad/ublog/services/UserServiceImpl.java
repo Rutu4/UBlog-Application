@@ -1,5 +1,7 @@
 package com.upgrad.ublog.services;
 
+import com.upgrad.ublog.dao.UserDAO;
+
 /**
  * TODO: 3.10. Implement the UserService interface and implement this class using the Singleton pattern.
  *  (Hint: Should have a private no-arg Constructor, a private static instance attribute of type
@@ -26,7 +28,71 @@ package com.upgrad.ublog.services;
  *  trace corresponding to the exception passed by DAO layer and throw a new exception of type Exception
  *  with a message "Some unexpected error occurred!"
  */
+import com.upgrad.ublog.dao.DAOFactory;
+import com.upgrad.ublog.dtos.User;
+import com.upgrad.ublog.exceptions.IncorrectPasswordException;
+import com.upgrad.ublog.exceptions.UserAlreadyRegisteredException;
+import com.upgrad.ublog.exceptions.UserNotFoundException;
 
-public class UserServiceImpl {
+import java.sql.SQLException;
 
+public class UserServiceImpl implements UserService {
+    private static UserServiceImpl userServiceImpl=null;
+    private UserDAO userDAO;
+    private DAOFactory daoFactory;
+    private UserServiceImpl(){
+        daoFactory = new DAOFactory();
+        userDAO = daoFactory.getUserDAOImpl();
+
+    }
+    public static UserServiceImpl getInstance(){
+        if(userServiceImpl==null){
+            userServiceImpl=new UserServiceImpl();
+        }
+        return userServiceImpl;
+    }
+
+    @Override
+    public boolean login(User user) throws Exception {
+        if(user==null){
+            return false;
+        }
+        User temp = null;
+        try {
+            temp = userDAO.findByEmailId(user.getEmailId());
+        } catch (SQLException e) {
+            throw new Exception("Some unexpected exception occurred.");
+        }
+
+        if (temp == null) {
+            throw new UserNotFoundException("No user registered with the given email address!");
+        } else if (!temp.getPassword().equals(user.getPassword())) {
+            throw new IncorrectPasswordException("Password is not correct.");
+        } else {
+            return true;
+        }
+
+
+
+    }
+
+    @Override
+    public boolean register(User user) throws Exception {
+        if (user == null) {
+            throw new NullPointerException("User object was null");
+        }
+        User temp = null;
+        try {
+            temp = userDAO.findByEmailId(user.getEmailId());
+        } catch (SQLException e) {
+            throw new Exception ("Some unexpected exception occurred");
+        }
+
+        if (temp != null) {
+            throw new UserAlreadyRegisteredException("A user with this email address already exists!");
+        } else {
+            userDAO.create(user);
+            return true;
+        }
+    }
 }
