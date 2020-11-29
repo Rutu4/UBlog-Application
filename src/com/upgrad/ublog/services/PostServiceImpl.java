@@ -82,7 +82,15 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<Post> getPostsByEmailId(String emailId) throws Exception {
-        return null;
+        try {
+            List<Post> posts = postDAO.findByEmailId(emailId);
+            return posts;
+        }
+        catch (Exception e){
+            throw  new Exception("Some unexpected error occurred!");
+
+        }
+
     }
 
     @Override

@@ -233,6 +233,23 @@ public class Application {
         System.out.println("*****Search Post*****");
         System.out.println("*********************");
 
+        System.out.println("Email Id: ");
+        String emailId=scanner.next();
+        try {
+            List<Post> posts=postService.getPostsByEmailId(emailId);
+            if(posts.size()==0){
+                throw new PostNotFoundException("Sorry no posts exists for this email id");
+            }
+            else{
+                for(Post post: posts){
+                    System.out.println(post);
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
 
     }
 

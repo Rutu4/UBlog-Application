@@ -35,17 +35,17 @@ public class Post {
         this.timestamp=timestamp;
     }
 
- //       @Override
-   // public String toString() {
-     //  return "Post{" +
-       //         "postId=" + postId +
-         //       ", emailId='" + emailId + '\'' +
-           //     ", tag='" + tag + '\'' +
-             //   ", title='" + title + '\'' +
-      //          ", description='" + description + '\'' +
-        //        ", timestamp=" + timestamp +
-          //     '}';
-     // }
+        @Override
+    public String toString() {
+       return "Post{" +
+                "postId=" + postId +
+                ", emailId='" + emailId + '\'' +
+                ", tag='" + tag + '\'' +
+                ", title='" + title + '\'' +
+               ", description='" + description + '\'' +
+                ", timestamp=" + timestamp +
+          '}';
+      }
 
   // public static void main(String[] args) {
   //      Post post = new Post();

@@ -36,8 +36,11 @@ import com.upgrad.ublog.db.Database;
 import com.upgrad.ublog.dtos.Post;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,7 +78,22 @@ public class PostDAOImpl implements PostDAO{
 
     @Override
     public List<Post> findByEmailId(String emailId) throws SQLException {
-        return null;
+        List<Post> posts= new ArrayList<>();
+        Connection connection = Database.getConnection();
+        Statement statement = connection.createStatement();
+        String sql="SELECT * FROM post WHERE emailId= '"+emailId+"'";
+        ResultSet res= statement.executeQuery(sql);
+        Post post=new Post();
+        while(res.next()){
+            post.setPostId(res.getInt(1));
+            post.setEmailId(res.getString(2));
+            post.setTag(res.getString(3));
+            post.setTitle(res.getString(4));
+            post.setDescription(res.getString(5));
+            post.setTimestamp(LocalDateTime.now());
+            posts.add(post);
+        }
+        return posts;
     }
 
     @Override
