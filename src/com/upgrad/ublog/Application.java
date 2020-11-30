@@ -274,7 +274,20 @@ public class Application {
         System.out.println("*****Delete Post*****");
         System.out.println("*********************");
 
-
+        System.out.println("Post Id: ");
+        int postId =scanner.nextInt();
+        try{
+            boolean deleted= postService.deletePost(postId,loggedInEmailId);
+            if(deleted){
+                System.out.println("Post deleted successfully!");
+            }
+            else{
+                System.out.println("You are not authorised to delete this post");
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

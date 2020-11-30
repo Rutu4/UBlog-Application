@@ -63,12 +63,32 @@ public class PostDAOImpl implements PostDAO{
 
     @Override
     public Post findByPostId(int postId) throws SQLException {
-        return null;
+        Connection connection = Database.getConnection();
+        Statement statement = connection.createStatement();
+        String sql="SELECT * FROM post WHERE postId= '"+postId+"'";
+        ResultSet res= statement.executeQuery(sql);
+        Post post=new Post();
+        while(res.next()){
+            post.setPostId(res.getInt(1));
+            post.setEmailId(res.getString(2));
+            post.setTag(res.getString(3));
+            post.setTitle(res.getString(4));
+            post.setDescription(res.getString(5));
+            post.setTimestamp(LocalDateTime.now());
+
+        }
+
+        return post;
     }
 
     @Override
     public boolean deleteByPostId(int postId) throws SQLException {
-        return false;
+        Connection connection = Database.getConnection();
+        Statement statement = connection.createStatement();
+        String sql="DELETE FROM post WHERE postId= '"+postId+"'";
+        int res=statement.executeUpdate(sql);
+
+        return res>0;
     }
 
     @Override

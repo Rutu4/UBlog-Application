@@ -54,6 +54,7 @@ package com.upgrad.ublog.services;
 import com.upgrad.ublog.dao.DAOFactory;
 import com.upgrad.ublog.dao.PostDAO;
 import com.upgrad.ublog.dtos.Post;
+import com.upgrad.ublog.exceptions.PostNotFoundException;
 
 import java.util.List;
 import java.util.Set;
@@ -95,12 +96,24 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public boolean deletePost(int postId, String emailId) throws Exception {
-        return false;
+        try {
+            Post post = postDAO.findByPostId(postId);
+            if (post == null) {
+                throw new PostNotFoundException("No Post exist with the given Post Id");
+            } else if (post.getEmailId().equals(emailId) ) {
+                return postDAO.deleteByPostId(postId);
+            } else {
+                return false;
+            }
+        }
+        catch (Exception e){
+            throw new Exception("Some unexpected error occurred!");
+        }
     }
 
     @Override
     public List<Post> getPostsByTag(String tag) throws Exception {
-        return null;
+         return null;
     }
 
     @Override
