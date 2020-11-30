@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Application {
     private Scanner scanner;
@@ -311,6 +312,24 @@ public class Application {
         System.out.println("*****Filter Post*****");
         System.out.println("*********************");
 
+        try {
+            Set<String> uniqueTags=postService.getAllTags();
+            System.out.println("Tags: "+uniqueTags);
+            System.out.println("Tag: ");
+            String tag=scanner.next();
+            List<Post> posts=postService.getPostsByTag(tag);
+            if(posts.size()==0){
+                throw new PostNotFoundException("Sorry no posts exists for this tag");
+            }else {
+                for(Post post:posts){
+                    System.out.println(post);
+                }
+            }
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
 

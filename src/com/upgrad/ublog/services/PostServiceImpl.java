@@ -56,6 +56,7 @@ import com.upgrad.ublog.dao.PostDAO;
 import com.upgrad.ublog.dtos.Post;
 import com.upgrad.ublog.exceptions.PostNotFoundException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -113,12 +114,26 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<Post> getPostsByTag(String tag) throws Exception {
-         return null;
+         try {
+            List<Post> posts=postDAO.findByTag(tag);
+            return posts;
+         }
+         catch (Exception e){
+             throw new Exception("Some unexpected error occurred!");
+         }
+
     }
 
     @Override
     public Set<String> getAllTags() throws Exception {
-        return null;
+        try {
+            List<String> tags = postDAO.findAllTags();
+            Set<String> uniqueTags = new HashSet<String>(tags);
+            return uniqueTags;
+        }
+        catch (Exception e){
+            throw new Exception("Some unexpected error occurred!");
+        }
     }
 
     @Override

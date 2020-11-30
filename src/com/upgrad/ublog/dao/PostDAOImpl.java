@@ -93,7 +93,23 @@ public class PostDAOImpl implements PostDAO{
 
     @Override
     public List<Post> findByTag(String tag) throws SQLException {
-        return null;
+      List<Post> posts =new ArrayList<>();
+        Connection connection = Database.getConnection();
+        Statement statement = connection.createStatement();
+        String sql="SELECT * FROM post WHERE tag= '"+tag+"'";
+        ResultSet res= statement.executeQuery(sql);
+        Post post=new Post();
+        while(res.next()){
+            post.setPostId(res.getInt(1));
+            post.setEmailId(res.getString(2));
+            post.setTag(res.getString(3));
+            post.setTitle(res.getString(4));
+            post.setDescription(res.getString(5));
+            post.setTimestamp(LocalDateTime.now());
+            posts.add(post);
+        }
+
+      return posts;
     }
 
     @Override
@@ -118,7 +134,17 @@ public class PostDAOImpl implements PostDAO{
 
     @Override
     public List<String> findAllTags() throws SQLException {
-        return null;
+      List<String> tags=new ArrayList<>();
+        Connection connection = Database.getConnection();
+        Statement statement = connection.createStatement();
+        String sql="SELECT tag FROM post";
+        ResultSet res= statement.executeQuery(sql);
+        while ((res.next())){
+            String tag=res.getString(1);
+            tags.add(tag);
+        }
+
+        return tags;
     }
 
     @Override
