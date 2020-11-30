@@ -56,6 +56,7 @@ import com.upgrad.ublog.dao.PostDAO;
 import com.upgrad.ublog.dtos.Post;
 import com.upgrad.ublog.exceptions.PostNotFoundException;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,7 +89,7 @@ public class PostServiceImpl implements PostService{
             List<Post> posts = postDAO.findByEmailId(emailId);
             return posts;
         }
-        catch (Exception e){
+        catch (SQLException e){
             throw  new Exception("Some unexpected error occurred!");
 
         }
@@ -97,20 +98,19 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public boolean deletePost(int postId, String emailId) throws Exception {
-        try {
-            Post post = postDAO.findByPostId(postId);
-            if (post == null) {
-                throw new PostNotFoundException("No Post exist with the given Post Id");
-            } else if (post.getEmailId().equals(emailId) ) {
+        try{
+            Post post=postDAO.findByPostId(postId);
+            if(post==null){
+                throw new PostNotFoundException("No Post exists for this post Id");
+            }else if(post.getEmailId().equals(emailId)){
                 return postDAO.deleteByPostId(postId);
-            } else {
+            }else {
                 return false;
             }
+        }catch (SQLException e){
+            throw new Exception("Some unexpected exception occurred");
         }
-        catch (Exception e){
-            throw new Exception("Some unexpected error occurred!");
-        }
-    }
+     }
 
     @Override
     public List<Post> getPostsByTag(String tag) throws Exception {
@@ -131,7 +131,7 @@ public class PostServiceImpl implements PostService{
             Set<String> uniqueTags = new HashSet<String>(tags);
             return uniqueTags;
         }
-        catch (Exception e){
+        catch (SQLException e){
             throw new Exception("Some unexpected error occurred!");
         }
     }
@@ -142,7 +142,7 @@ public class PostServiceImpl implements PostService{
             Post post1 = postDAO.create(post);
             return post1;
         }
-        catch (Exception e){
+        catch (SQLException e){
             throw  new Exception("Some unexpected error occurred!");
 
         }

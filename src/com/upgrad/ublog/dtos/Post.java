@@ -12,6 +12,8 @@ package com.upgrad.ublog.dtos;
  *
  * Note: Uncomment the toString() method given below, instead of writing a new one.
  */
+import com.upgrad.ublog.utils.DateTimeFormatter;
+
 import java.time.LocalDateTime;
 public class Post {
     private int postId;
@@ -19,20 +21,20 @@ public class Post {
     private String tag;
     private String title;
     private String description;
-    private LocalDateTime timestamp;
+    private String timestamp;
 
     public Post(){
 
     }
 
     public Post(int postId, String emailId, String tag, String title,
-                String description, LocalDateTime timestamp) {
+                String description  ) {
         this.postId = postId;
         this.emailId=emailId;
         this.tag=tag;
         this.title=title;
         this.description=description;
-        this.timestamp=timestamp;
+        this.timestamp= DateTimeFormatter.format(LocalDateTime.now());
     }
 
         @Override
@@ -85,7 +87,7 @@ public class Post {
     }
 
     public String getTimestamp() {
-        return ""+timestamp;
+        return timestamp;
     }
 
     public void setPostId(int postId) {
@@ -108,7 +110,7 @@ public class Post {
         this.description = description;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

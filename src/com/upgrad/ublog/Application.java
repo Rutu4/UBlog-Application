@@ -16,6 +16,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Application {
+    private static int counter=1;
     private Scanner scanner;
 
     private PostService postService;
@@ -104,7 +105,7 @@ public class Application {
                 loggedInEmailId = user.getEmailId();
             }
         } catch (Exception e) {
-            //code to execute when user object was null
+
             System.out.println(e.getMessage());
         }
 
@@ -205,7 +206,8 @@ public class Application {
 
        // LocalDateTime localTimeDate=  LocalDateTime.now();
 
-        Post post=new Post(1,loggedInEmailId,postTag,postTitle,postDescription, LocalDateTime.now());
+        int id=counter++;
+        Post post=new Post(id,loggedInEmailId,postTag,postTitle,postDescription);
         try {
             postService.create(post);
         }
@@ -286,6 +288,9 @@ public class Application {
                 System.out.println("You are not authorised to delete this post");
             }
         }
+        //catch (PostNotFoundException e){
+        //    System.out.println(e.getMessage());
+       // }
         catch (Exception e){
             System.out.println(e.getMessage());
         }

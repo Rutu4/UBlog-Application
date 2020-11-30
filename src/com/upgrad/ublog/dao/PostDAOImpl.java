@@ -65,18 +65,21 @@ public class PostDAOImpl implements PostDAO{
     public Post findByPostId(int postId) throws SQLException {
         Connection connection = Database.getConnection();
         Statement statement = connection.createStatement();
-        String sql="SELECT * FROM post WHERE postId= '"+postId+"'";
+        String sql="SELECT * FROM post WHERE postId= "+postId;
         ResultSet res= statement.executeQuery(sql);
         Post post=new Post();
-        while(res.next()){
+        if( !res.next()){
+            return null;
+        }
+
             post.setPostId(res.getInt(1));
             post.setEmailId(res.getString(2));
             post.setTag(res.getString(3));
             post.setTitle(res.getString(4));
             post.setDescription(res.getString(5));
-            post.setTimestamp(LocalDateTime.now());
+            post.setTimestamp(res.getString(6));
 
-        }
+
 
         return post;
     }
@@ -85,7 +88,7 @@ public class PostDAOImpl implements PostDAO{
     public boolean deleteByPostId(int postId) throws SQLException {
         Connection connection = Database.getConnection();
         Statement statement = connection.createStatement();
-        String sql="DELETE FROM post WHERE postId= '"+postId+"'";
+        String sql="DELETE FROM post WHERE postId= "+postId;
         int res=statement.executeUpdate(sql);
 
         return res>0;
@@ -105,7 +108,7 @@ public class PostDAOImpl implements PostDAO{
             post.setTag(res.getString(3));
             post.setTitle(res.getString(4));
             post.setDescription(res.getString(5));
-            post.setTimestamp(LocalDateTime.now());
+            post.setTimestamp(res.getString(6));
             posts.add(post);
         }
 
@@ -126,7 +129,7 @@ public class PostDAOImpl implements PostDAO{
             post.setTag(res.getString(3));
             post.setTitle(res.getString(4));
             post.setDescription(res.getString(5));
-            post.setTimestamp(LocalDateTime.now());
+            post.setTimestamp(res.getString(6));
             posts.add(post);
         }
         return posts;
@@ -164,3 +167,4 @@ public class PostDAOImpl implements PostDAO{
         return post;
     }
 }
+
