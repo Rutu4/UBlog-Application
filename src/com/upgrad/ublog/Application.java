@@ -210,6 +210,10 @@ public class Application {
         Post post=new Post(id,loggedInEmailId,postTag,postTitle,postDescription);
         try {
             postService.create(post);
+            String logMessage=post.getTimestamp()+"\tNew post with title "+post.getTitle()+" created by "+post.getEmailId();
+            String path=System.getProperty("user.dir");
+            LogWriter.writeLog(logMessage,path);
+
         }
         catch (Exception e){
             System.out.println(e.getMessage());
