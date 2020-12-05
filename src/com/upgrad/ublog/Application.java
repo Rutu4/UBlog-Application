@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Application {
+public class Application extends Thread {
     private static int counter=1;
     private Scanner scanner;
 
@@ -33,7 +33,7 @@ public class Application {
         loggedInEmailId = null;
     }
 
-    private void start() {
+    public void start() {
         boolean flag = true;
 
         System.out.println("*********************");
@@ -201,23 +201,40 @@ public class Application {
         String postTag=scanner.nextLine();
         System.out.println("Post Title: ");
         String postTitle=scanner.nextLine();
-        System.out.println("POst Description: ");
+        System.out.println("Post Description: ");
         String postDescription=scanner.nextLine();
 
        // LocalDateTime localTimeDate=  LocalDateTime.now();
 
         int id=counter++;
         Post post=new Post(id,loggedInEmailId,postTag,postTitle,postDescription);
-        try {
-            postService.create(post);
-            String logMessage=post.getTimestamp()+"\tNew post with title "+post.getTitle()+" created by "+post.getEmailId();
-            String path=System.getProperty("user.dir");
-            LogWriter.writeLog(logMessage,path);
 
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+            Thread thread1=new Thread() {
+               public void run() {
+                    try {
+                        postService.create(post);
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+
+                    }
+                }
+            };
+            thread1.start();
+            Thread thread2=new Thread() {
+                public void run() {
+                    try {
+                        String logMessage = "\tNew post with title " + post.getTitle() + " created by " + post.getEmailId();
+                        String path = System.getProperty("user.dir");
+                        LogWriter.writeLog(logMessage, path);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+
+                    }
+                }
+            };
+            thread2.start();
+
+
     }
 
     /**
