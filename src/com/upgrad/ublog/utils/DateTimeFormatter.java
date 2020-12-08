@@ -1,9 +1,6 @@
 package com.upgrad.ublog.utils;
 
-import java.text.SimpleDateFormat;
-import java.time.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * TODO: 4.13. Implement a method with the following signature.
@@ -13,12 +10,12 @@ import java.util.Date;
 
 public class DateTimeFormatter {
     public static  String format(LocalDateTime localDateTime){
-    int day=localDateTime.getDayOfMonth();
-    int month=localDateTime.getMonthValue();
-    int year=localDateTime.getYear();
-    int hr=localDateTime.getHour();
-    int min=localDateTime.getMinute();
-    int sec=localDateTime.getSecond();
-    return day+"-"+month+"-"+year+" "+hr+":"+min+":"+sec;
+            int day=localDateTime.getDayOfMonth();
+            int month=localDateTime.getMonthValue();
+            int year=localDateTime.getYear();
+            int hr=localDateTime.getHour();
+            int min=localDateTime.getMinute();
+            int sec=localDateTime.getSecond();
+            return day+"-"+month+"-"+year+" "+hr+":"+min+":"+sec;
     }
 }

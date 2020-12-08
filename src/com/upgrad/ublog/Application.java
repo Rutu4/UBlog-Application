@@ -16,7 +16,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Application extends Thread {
-    private static int counter=1;
     private Scanner scanner;
 
     private PostService postService;
@@ -204,10 +203,13 @@ public class Application extends Thread {
         System.out.println("Post Description: ");
         String postDescription=scanner.nextLine();
 
-       // LocalDateTime localTimeDate=  LocalDateTime.now();
 
-        int id=counter++;
-        Post post=new Post(id,loggedInEmailId,postTag,postTitle,postDescription);
+        Post post=new Post();
+        post.setEmailId(loggedInEmailId);
+        post.setTag(postTag);
+        post.setTitle(postTitle);
+        post.setDescription(postDescription);
+        post.setTimestamp(DateTimeFormatter.format((LocalDateTime.now())));
 
             Thread thread1=new Thread() {
                public void run() {
@@ -309,9 +311,6 @@ public class Application extends Thread {
                 System.out.println("You are not authorised to delete this post");
             }
         }
-        //catch (PostNotFoundException e){
-        //    System.out.println(e.getMessage());
-       // }
         catch (Exception e){
             System.out.println(e.getMessage());
         }

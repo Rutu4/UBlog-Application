@@ -24,7 +24,7 @@ public class Post {
     private String timestamp;
 
     public Post(){
-
+           this.timestamp=DateTimeFormatter.format((LocalDateTime.now()));
     }
 
     public Post(int postId, String emailId, String tag, String title,
