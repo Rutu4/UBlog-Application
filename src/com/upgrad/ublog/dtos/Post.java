@@ -24,7 +24,7 @@ public class Post {
     private String timestamp;
 
     public Post(){
-           
+
     }
 
     public Post(int postId, String emailId, String tag, String title,

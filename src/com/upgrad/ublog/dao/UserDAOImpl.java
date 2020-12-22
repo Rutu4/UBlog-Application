@@ -39,14 +39,15 @@ public class UserDAOImpl implements UserDAO {
                 String sql = "SELECT * FROM user WHERE emailId = '" + emailId+"'";
                 ResultSet resultSet = statement.executeQuery(sql);
 
+                User user = new User();
+
                 if (resultSet.next()) {
-                    User user = new User();
                     user.setUserId(resultSet.getInt("userId"));
                     user.setEmailId(resultSet.getString("emailId"));
                     user.setPassword(resultSet.getString("password"));
                     return user;
                 } else {
-                    return null;
+                    return user;
                 }
             }
         public User create(User user)throws SQLException{
